@@ -1,26 +1,37 @@
 import React from "react";
+import styled from "styled-components";
 
-function Card({ list, clickDelete, clickEdit }) {
+const CardContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  border: 1px solid #fff;
+`;
+
+const Cards = styled.ul`
+  display: flex;
+  border: 1px solid #fff;
+  width: 300px;
+  flex-direction: column;
+`;
+
+function Card({ list, clickShowDetail }) {
   return (
-    <div>
-      {list.map((item) => {
-        return (
-          <div className="container" key={item.id}>
-            <div>
-              <img src="#" alt="" />
-              <p>{item.userName}</p>
-              <p>{item.password}</p>
-              <p>{item.id}</p>
+    <CardContainer>
+      {list &&
+        list.map((item) => {
+          return (
+            <Cards key={item.id} onClick={() => clickShowDetail(item.id)}>
               <p>{item.title}</p>
-              <p>{item.comments}</p>
+              <p>{item.userName}</p>
+              <p>{`${item.comments.substring(0, 35)}...`}</p>
               <p>{item.selectedAlbum}</p>
-              <button onClick={() => clickDelete(item.id)}>삭제</button>
-              <button onClick={() => clickEdit(item.id)}>수정</button>
-            </div>
-          </div>
-        );
-      })}
-    </div>
+            </Cards>
+          );
+        })}
+    </CardContainer>
   );
 }
 

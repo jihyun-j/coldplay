@@ -1,48 +1,88 @@
 import React from "react";
 import styled from "styled-components";
 
+const FormContainer = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+`;
+
+const Input = styled.input`
+  width: 400px;
+  padding: 10px 8px;
+  background-color: transparent;
+  border: 2px solid transparent;
+  outline: none;
+  color: #fff;
+  text-align: center;
+  font-size: 20px;
+
+  &:focus {
+    border-bottom: 2px solid #fff;
+  }
+
+  &::placeholder {
+    color: #c0c0c0;
+  }
+`;
+
+const Textarea = styled.textarea`
+  width: 400px;
+  padding: 10px 8px;
+  background-color: transparent;
+  resize: none;
+  color: #fff;
+  text-align: center;
+  height: 150px;
+  border: none;
+  outline: none;
+  font-size: 20px;
+
+  &::placeholder {
+    color: #c0c0c0;
+  }
+`;
+
 function Form({
   userName,
-  password,
   title,
   comments,
   onChangeUser,
-  onChangePassword,
   onChangeTitle,
   onChangeComments,
   clickSubmit,
 }) {
   return (
     <div>
-      <form action="">
-        <input
+      <FormContainer onClick={clickSubmit}>
+        <Input
           type="text"
-          placeholder="사용자이름"
+          placeholder="Your Name (Max 20 characters)"
+          maxLength={20}
           value={userName}
           onChange={onChangeUser}
         />
 
-        <input
-          type="password"
-          placeholder="비밀번호"
-          value={password}
-          onChange={onChangePassword}
-        />
-        <input
+        <Input
           type="text"
-          placeholder="추억에 대한 제목을 적어주세요."
+          placeholder="Give your memory a title (Max 40 characters)"
           className="title"
+          maxLength={40}
           value={title}
           onChange={onChangeTitle}
         />
-        <textarea
+
+        <Textarea
           type="text"
-          placeholder="앨범에 대한 추억을 적어주세요."
+          placeholder="Write your memory here... (Max 100 characters)"
+          maxLength={100}
           value={comments}
           onChange={onChangeComments}
         />
-        <button onClick={clickSubmit}>등록</button>
-      </form>
+        <button type="submit">등록</button>
+      </FormContainer>
     </div>
   );
 }

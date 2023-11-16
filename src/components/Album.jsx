@@ -1,9 +1,32 @@
 import React from "react";
 import styled from "styled-components";
 
-const AlbumContainer = styled.form`
+const AlbumHeader = styled.div`
+  font-size: 50px;
+  text-align: center;
+  margin-top: 100px;
+`;
+
+const AlbumContainer = styled.div`
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
   padding: 100px;
+`;
+
+const SelectAlbum = styled.label`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid yellow;
+`;
+
+const AlbumInput = styled.input`
+  display: none;
 `;
 
 const AlbumImage = styled.img`
@@ -11,95 +34,33 @@ const AlbumImage = styled.img`
   height: 150px;
 `;
 
-function Album({ album }) {
+const AlbumTitle = styled.span`
+  font-size: 10px;
+  text-align: center;
+`;
+
+function Album({ albumList, clickAlbum, children }) {
   return (
-    <AlbumContainer>
-      <label className="selectAlbum" for="album1">
-        <input
-          type="radio"
-          value="A HEAD FULL OF DREAMS"
-          id="album1"
-          name="album1"
-          onClick={album}
-        />
-        <AlbumImage
-          src="https://upload.wikimedia.org/wikipedia/en/3/3d/Coldplay_-_A_Head_Full_of_Dreams.png"
-          alt=""
-        />
-      </label>
-
-      <label className="selectAlbum" for="album2">
-        <input
-          type="radio"
-          value="GHOST STORIES"
-          onClick={album}
-          id="album2"
-          name="album2"
-        />
-        <AlbumImage
-          src="https://upload.wikimedia.org/wikipedia/en/8/8a/Coldplay_-_Ghost_Stories.png"
-          alt=""
-        />
-      </label>
-
-      <label className="selectAlbum" for="album3">
-        <input
-          type="radio"
-          value="MYLO XYLOTO"
-          onClick={album}
-          id="album3"
-          name="album3"
-        />
-        <AlbumImage
-          src="https://upload.wikimedia.org/wikipedia/en/8/83/Coldplay_-_Mylo_Xyloto_%28Official_Album_Cover%29.png"
-          alt=""
-        />
-      </label>
-
-      <label className="selectAlbum" for="album4">
-        <input
-          type="radio"
-          value="VIVA LA VIDA OR DEATH AND ALL HIS FRIENDS"
-          onClick={album}
-          id="album4"
-          name="album4"
-        />
-        <AlbumImage
-          src="https://upload.wikimedia.org/wikipedia/en/b/b2/Coldplay_-_Viva_la_Vida_or_Death_and_All_His_Friends.png"
-          alt=""
-        />
-      </label>
-      <label className="selectAlbum">
-        <input
-          type="radio"
-          value="X&Y
-        "
-          onClick={album}
-        />
-        <AlbumImage
-          src="https://upload.wikimedia.org/wikipedia/en/thumb/2/28/Coldplay_X%26Y.svg/440px-Coldplay_X%26Y.svg.png"
-          alt=""
-        />
-      </label>
-      <label className="selectAlbum">
-        <input
-          type="radio"
-          value="A RUSH OF BLOOD TO THE HEAD"
-          onClick={album}
-        />
-        <AlbumImage
-          src="https://upload.wikimedia.org/wikipedia/en/6/60/Coldplay_-_A_Rush_of_Blood_to_the_Head_Cover.png"
-          alt=""
-        />
-      </label>
-      <label className="selectAlbum">
-        <input type="radio" value="PARACHUTES" onClick={album} />
-        <AlbumImage
-          src="https://upload.wikimedia.org/wikipedia/en/f/fd/Coldplay_-_Parachutes.png"
-          alt=""
-        />
-      </label>
-    </AlbumContainer>
+    <div>
+      <AlbumHeader>{children}</AlbumHeader>
+      <AlbumContainer>
+        {albumList.map((album) => {
+          return (
+            <SelectAlbum htmlFor={album.albumId} key={album.albumId}>
+              <AlbumInput
+                type="radio"
+                id={album.albumId}
+                name={album.albumId}
+                value={album.title}
+                onClick={clickAlbum}
+              />
+              <AlbumImage src={album.image} alt={album.title} />
+              <AlbumTitle>{album.title}</AlbumTitle>
+            </SelectAlbum>
+          );
+        })}
+      </AlbumContainer>
+    </div>
   );
 }
 
