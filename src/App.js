@@ -18,6 +18,8 @@ function App() {
   const [updateUserName, setUpdateUserName] = useState();
   const [updateComments, setUpdateComments] = useState();
 
+  console.log("test");
+
   const onChangeUpdateUserName = (e) => {
     setUpdateUserName(e.target.value);
   };
