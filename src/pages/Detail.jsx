@@ -1,23 +1,10 @@
-import React, { useState } from "react";
+import { GlobalContext } from "context/GlobalContext";
+import { useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 
-function Detail({
-  list,
-  showDeleteConfirmation,
-  clickShowDeleteConfirmation,
-  clickCancelDelete,
-  clickConfirmDelete,
-  clickEdit,
-  isEditing,
-  clickEditCancel,
-  updateUserName,
-  onChangeUpdateUserName,
-  updateTitle,
-  onChangeUpdateTitle,
-  updateComments,
-  onChangeUpdateComments,
-  updateEditing,
-}) {
+function Detail() {
+  const data = useContext(GlobalContext);
+  const list = data.list;
   const params = useParams();
   const paramsID = params.id;
   const selectedComments = list.find((item) => String(item.id) === paramsID);
@@ -35,29 +22,29 @@ function Detail({
         </>
       )}
 
-      <button onClick={clickShowDeleteConfirmation}>삭제</button>
-      <button onClick={() => clickEdit(paramsID)}>수정</button>
+      <button onClick={data.clickShowDeleteConfirmation}>삭제</button>
+      <button onClick={() => data.clickEdit(paramsID)}>수정</button>
 
-      {showDeleteConfirmation ? (
+      {data.showDeleteConfirmation ? (
         <div>
           <div>삭제?</div>
 
-          <Link to="/" onClick={() => clickConfirmDelete(paramsID)}>
+          <Link to="/" onClick={() => data.clickConfirmDelete(paramsID)}>
             yes
           </Link>
 
-          <button onClick={clickCancelDelete}>no</button>
+          <button onClick={data.clickCancelDelete}>no</button>
         </div>
       ) : null}
 
-      {isEditing ? (
+      {data.isEditing ? (
         <form>
           <input
             type="text"
             placeholder="Your Name (Max 20 characters)"
             maxLength={20}
-            value={updateUserName}
-            onChange={onChangeUpdateUserName}
+            value={data.updateUserName}
+            onChange={data.onChangeUpdateUserName}
           />
 
           <input
@@ -65,19 +52,19 @@ function Detail({
             placeholder="Give your memory a title (Max 40 characters)"
             className="title"
             maxLength={40}
-            value={updateTitle}
-            onChange={onChangeUpdateTitle}
+            value={data.updateTitle}
+            onChange={data.onChangeUpdateTitle}
           />
 
           <textarea
             type="text"
             placeholder="Write your memory here... (Max 100 characters)"
             maxLength={100}
-            value={updateComments}
-            onChange={onChangeUpdateComments}
+            value={data.updateComments}
+            onChange={data.onChangeUpdateComments}
           />
-          <button onClick={updateEditing}>등록</button>
-          <button onClick={clickEditCancel}>취소</button>
+          <button onClick={data.updateEditing}>등록</button>
+          <button onClick={data.clickEditCancel}>취소</button>
         </form>
       ) : null}
     </div>

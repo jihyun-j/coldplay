@@ -77,7 +77,6 @@ const Router = ({
               updateEditing={updateEditing}
             />
           }></Route>
-        <Route></Route>
       </Routes>
     </BrowserRouter>
   );

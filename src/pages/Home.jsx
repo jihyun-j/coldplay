@@ -2,50 +2,38 @@ import Album from "components/Album";
 import Header from "components/Header";
 import Form from "components/Form";
 import Card from "components/Card";
-import React from "react";
+import React, { useContext } from "react";
 import AlbumFilter from "components/AlbumFilter";
+import { GlobalContext } from "context/GlobalContext";
 
-function Home({
-  albumList,
-  clickAlbum,
-  userName,
-  title,
-  comments,
-  onChangeUser,
-  onChangeTitle,
-  onChangeComments,
-  clickSubmit,
-  list,
-  clickDelete,
-  clickEdit,
-  clickShowDetail,
-  clickAlbumFilter,
-}) {
+function Home() {
+  const data = useContext(GlobalContext);
+
   return (
     <>
       <Header></Header>
 
-      <Album albumList={albumList} clickAlbum={clickAlbum}>
+      <Album albumList={data.albumList} clickAlbum={data.clickAlbum}>
         Select the album below
       </Album>
       <Form
-        userName={userName}
-        title={title}
-        comments={comments}
-        onChangeUser={onChangeUser}
-        onChangeTitle={onChangeTitle}
-        onChangeComments={onChangeComments}
-        clickSubmit={clickSubmit}></Form>
+        userName={data.userName}
+        title={data.title}
+        comments={data.comments}
+        onChangeUser={data.onChangeUser}
+        onChangeTitle={data.onChangeTitle}
+        onChangeComments={data.onChangeComments}
+        clickSubmit={data.clickSubmit}></Form>
 
       <AlbumFilter
-        albumList={albumList}
-        clickAlbumFilter={clickAlbumFilter}></AlbumFilter>
+        albumList={data.albumList}
+        clickAlbumFilter={data.clickAlbumFilter}></AlbumFilter>
 
       <Card
-        list={list}
-        clickDelete={clickDelete}
-        clickEdit={clickEdit}
-        clickShowDetail={clickShowDetail}></Card>
+        list={data.list}
+        clickDelete={data.clickDelete}
+        clickEdit={data.clickEdit}
+        clickShowDetail={data.clickShowDetail}></Card>
     </>
   );
 }

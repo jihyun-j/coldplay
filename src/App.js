@@ -4,6 +4,7 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Router from "shared/Router";
 import albumList from "shared/albumlist";
+import { GlobalContext } from "context/GlobalContext";
 
 function App() {
   const [memory, setMemory] = useState([]);
@@ -17,8 +18,6 @@ function App() {
   const [updateTitle, setUpdateTitle] = useState(title);
   const [updateUserName, setUpdateUserName] = useState();
   const [updateComments, setUpdateComments] = useState();
-
-  console.log("test");
 
   const onChangeUpdateUserName = (e) => {
     setUpdateUserName(e.target.value);
@@ -129,34 +128,38 @@ function App() {
   return (
     <div className="App">
       <GlobalStyle></GlobalStyle>
-      <Router
-        albumList={albumList}
-        clickAlbum={getAlbumName}
-        userName={userName}
-        title={title}
-        comments={comments}
-        onChangeUser={onChangeUser}
-        onChangeTitle={onChangeTitle}
-        onChangeComments={onChangeComments}
-        clickSubmit={submitHandler}
-        list={memory}
-        clickShowDetail={showDetailsHandler}
-        clickShowDeleteConfirmation={showDeleteConfirmation}
-        showDeleteConfirmation={showDeleteConfirm}
-        clickConfirmDelete={confirmDeleteHandler}
-        clickCancelDelete={cancelDeleteHandler}
-        clickEdit={showEditingForm}
-        clickEditCancel={cancelEditHandler}
-        isEditing={isEditing}
-        clickAlbumFilter={filterAlbumHandler}
-        clickDetails={selectedDetail}
-        updateUserName={updateUserName}
-        updateTitle={updateTitle}
-        updateComments={updateComments}
-        onChangeUpdateUserName={onChangeUpdateUserName}
-        onChangeUpdateTitle={onChangeUpdateTitle}
-        onChangeUpdateComments={onChangeUpdateComments}
-        updateEditing={updateEditing}></Router>
+      <GlobalContext.Provider
+        value={{
+          albumList: albumList,
+          clickAlbum: getAlbumName,
+          userName: userName,
+          itle: title,
+          comments: comments,
+          onChangeUser: onChangeUser,
+          onChangeTitle: onChangeTitle,
+          onChangeComments: onChangeComments,
+          clickSubmit: submitHandler,
+          list: memory,
+          clickShowDetail: showDetailsHandler,
+          clickShowDeleteConfirmation: showDeleteConfirmation,
+          showDeleteConfirmation: showDeleteConfirm,
+          clickConfirmDelete: confirmDeleteHandler,
+          clickCancelDelete: cancelDeleteHandler,
+          clickEdit: showEditingForm,
+          clickEditCancel: cancelEditHandler,
+          isEditing: isEditing,
+          clickAlbumFilter: filterAlbumHandler,
+          clickDetails: selectedDetail,
+          updateUserName: updateUserName,
+          updateTitle: updateTitle,
+          updateComments: updateComments,
+          onChangeUpdateUserName: onChangeUpdateUserName,
+          onChangeUpdateTitle: onChangeUpdateTitle,
+          onChangeUpdateComments: onChangeUpdateComments,
+          updateEditing: updateEditing,
+        }}>
+        <Router></Router>
+      </GlobalContext.Provider>
     </div>
   );
 }
