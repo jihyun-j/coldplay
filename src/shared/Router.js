@@ -22,7 +22,14 @@ const Router = ({
   clickShowDetail,
   clickAlbumFilter,
   clickUpdateEdit,
+  clickEditCancel,
+  updateUserName,
+  updateTitle,
+  updateComments,
   onChangeUpdateUserName,
+  onChangeUpdateTitle,
+  onChangeUpdateComments,
+  updateEditing,
 }) => {
   return (
     <BrowserRouter>
@@ -60,7 +67,14 @@ const Router = ({
               clickEdit={clickEdit}
               isEditing={isEditing}
               clickUpdateEdit={clickUpdateEdit}
+              clickEditCancel={clickEditCancel}
+              updateUserName={updateUserName}
+              updateTitle={updateTitle}
+              updateComments={updateComments}
               onChangeUpdateUserName={onChangeUpdateUserName}
+              onChangeUpdateTitle={onChangeUpdateTitle}
+              onChangeUpdateComments={onChangeUpdateComments}
+              updateEditing={updateEditing}
             />
           }></Route>
         <Route></Route>

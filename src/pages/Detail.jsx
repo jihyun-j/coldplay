@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 function Detail({
@@ -9,7 +9,14 @@ function Detail({
   clickConfirmDelete,
   clickEdit,
   isEditing,
+  clickEditCancel,
+  updateUserName,
   onChangeUpdateUserName,
+  updateTitle,
+  onChangeUpdateTitle,
+  updateComments,
+  onChangeUpdateComments,
+  updateEditing,
 }) {
   const params = useParams();
   const paramsID = params.id;
@@ -22,13 +29,14 @@ function Detail({
       {selectedComments && (
         <>
           <div>{selectedComments.id}</div>
-          <div>{selectedComments.title}</div>
           <div>{selectedComments.userName}</div>
+          <div>{selectedComments.title}</div>
+          <div>{selectedComments.comments}</div>
         </>
       )}
 
       <button onClick={clickShowDeleteConfirmation}>삭제</button>
-      <button onClick={clickEdit}>수정</button>
+      <button onClick={() => clickEdit(paramsID)}>수정</button>
 
       {showDeleteConfirmation ? (
         <div>
@@ -48,7 +56,8 @@ function Detail({
             type="text"
             placeholder="Your Name (Max 20 characters)"
             maxLength={20}
-            value={selectedComments.userName}
+            value={updateUserName}
+            onChange={onChangeUpdateUserName}
           />
 
           <input
@@ -56,16 +65,19 @@ function Detail({
             placeholder="Give your memory a title (Max 40 characters)"
             className="title"
             maxLength={40}
-            value={selectedComments.title}
+            value={updateTitle}
+            onChange={onChangeUpdateTitle}
           />
 
           <textarea
             type="text"
             placeholder="Write your memory here... (Max 100 characters)"
             maxLength={100}
-            value={selectedComments.comments}
+            value={updateComments}
+            onChange={onChangeUpdateComments}
           />
-          <button type="submit">등록</button>
+          <button onClick={updateEditing}>등록</button>
+          <button onClick={clickEditCancel}>취소</button>
         </form>
       ) : null}
     </div>

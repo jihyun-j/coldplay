@@ -57,7 +57,6 @@ function Form({
   return (
     <div>
       <FormContainer onClick={clickSubmit}>
-        <p>New Mode</p>
         <Input
           type="text"
           placeholder="Your Name (Max 20 characters)"

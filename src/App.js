@@ -10,11 +10,25 @@ function App() {
   const [selectedDetail, setSelectedDetail] = useState([]);
   const [selectedAlbum, setSelectedAlbum] = useState();
   const [userName, setUserName] = useState("");
-  const [updateUserName, setUpdateUserName] = useState("");
   const [title, setTitle] = useState("");
   const [comments, setComments] = useState("");
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [updateTitle, setUpdateTitle] = useState(title);
+  const [updateUserName, setUpdateUserName] = useState();
+  const [updateComments, setUpdateComments] = useState();
+
+  const onChangeUpdateUserName = (e) => {
+    setUpdateUserName(e.target.value);
+  };
+
+  const onChangeUpdateTitle = (e) => {
+    setUpdateTitle(e.target.value);
+  };
+
+  const onChangeUpdateComments = (e) => {
+    setUpdateComments(e.target.value);
+  };
 
   // onChange Handlers
   const onChangeUser = (e) => {
@@ -56,11 +70,7 @@ function App() {
   };
 
   // Album Filter
-  const filterAlbumHandler = (selAlbum) => {
-    const filteredAlbum = memory.filter(
-      (album) => album.selectedAlbum === selAlbum.innerHTML
-    );
-  };
+  const filterAlbumHandler = (selAlbum) => {};
 
   // Show Deatils
   const showDetailsHandler = (id) => {
@@ -87,16 +97,26 @@ function App() {
   };
 
   // Show Editing Form
-  const showEditingForm = () => {
+  const showEditingForm = (id) => {
+    const getDetailInfo = memory.find((info) => info.id === id);
+    setUpdateTitle(getDetailInfo.title);
+    setUpdateUserName(getDetailInfo.userName);
+    setUpdateComments(getDetailInfo.comments);
     setIsEditing(true);
   };
-
-  // onChange Update UserName
-  const onChangeUpdateUserName = (e) => {};
 
   // Update Editing
   const updateEditing = (e) => {
     e.preventDefault();
+
+    setMemory(
+      memory.map((item) => ({
+        ...item,
+        title: updateTitle,
+        userName: updateUserName,
+        comments: updateComments,
+      }))
+    );
   };
 
   // Cancel Editing
@@ -124,10 +144,17 @@ function App() {
         clickConfirmDelete={confirmDeleteHandler}
         clickCancelDelete={cancelDeleteHandler}
         clickEdit={showEditingForm}
+        clickEditCancel={cancelEditHandler}
         isEditing={isEditing}
         clickAlbumFilter={filterAlbumHandler}
         clickDetails={selectedDetail}
-        onChangeUpdateUserName={onChangeUpdateUserName}></Router>
+        updateUserName={updateUserName}
+        updateTitle={updateTitle}
+        updateComments={updateComments}
+        onChangeUpdateUserName={onChangeUpdateUserName}
+        onChangeUpdateTitle={onChangeUpdateTitle}
+        onChangeUpdateComments={onChangeUpdateComments}
+        updateEditing={updateEditing}></Router>
     </div>
   );
 }
