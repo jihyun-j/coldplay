@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const CardContainer = styled.div`
@@ -20,17 +21,17 @@ const Cards = styled.ul`
 function Card({ list, clickShowDetail }) {
   return (
     <CardContainer>
-      {list &&
-        list.map((item) => {
-          return (
-            <Cards key={item.id} onClick={() => clickShowDetail(item.id)}>
-              <p>{item.title}</p>
-              <p>{item.userName}</p>
-              <p>{`${item.comments.substring(0, 35)}...`}</p>
-              <p>{item.selectedAlbum}</p>
-            </Cards>
-          );
-        })}
+      {list.map((item) => {
+        return (
+          <Cards key={item.id} onClick={() => clickShowDetail(item.id)}>
+            <Link to={`/detail/${item.id}`}>상세보기</Link>
+            <p>{item.title}</p>
+            <p>{item.userName}</p>
+            <p>{`${item.comments.substring(0, 35)}...`}</p>
+            <p>{item.selectedAlbum}</p>
+          </Cards>
+        );
+      })}
     </CardContainer>
   );
 }
