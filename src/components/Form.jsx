@@ -1,5 +1,14 @@
 import React from "react";
 import styled from "styled-components";
+import { v4 as uuidv4 } from "uuid";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  usernameAction,
+  titleAction,
+  commentAction,
+  memoryListAction,
+  addNewMemoryAction,
+} from "redux/modules/actionTypes";
 
 const FormContainer = styled.form`
   display: flex;
@@ -45,23 +54,73 @@ const Textarea = styled.textarea`
   }
 `;
 
-function Form({
-  userName,
-  title,
-  comments,
-  onChangeUser,
-  onChangeTitle,
-  onChangeComments,
-  clickSubmit,
-}) {
+function Form() {
+  const dispatch = useDispatch();
+
+  const username = useSelector((state) => {
+    return state.home.username;
+  });
+
+  const title = useSelector((state) => {
+    return state.home.title;
+  });
+
+  const comment = useSelector((state) => {
+    return state.home.comment;
+  });
+
+  const memoryList = useSelector((state) => {
+    return state.home.newMemory;
+  });
+
+  const selectedAlbum = useSelector((state) => {
+    return state.home.selectedAlbum;
+  });
+
+  const onChangeUser = (e) => {
+    const newUserName = e.target.value;
+    dispatch(usernameAction(newUserName));
+  };
+
+  const onChangeTitle = (e) => {
+    const newTitle = e.target.value;
+    dispatch(titleAction(newTitle));
+  };
+
+  const onChangeComment = (e) => {
+    const newComment = e.target.value;
+    dispatch(commentAction(newComment));
+  };
+
+  // Submit Handler
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    const newMemory = {
+      id: uuidv4(),
+      username,
+      title,
+      comment,
+      selectedAlbum,
+    };
+
+    dispatch(addNewMemoryAction(newMemory));
+
+    // if (!username || !title || !comment) {
+    //   return memoryList;
+    // } else {
+    //   return { ...memoryList, newMemory };
+    // }
+  };
+
   return (
     <div>
-      <FormContainer onClick={clickSubmit}>
+      <FormContainer onSubmit={submitHandler}>
         <Input
           type="text"
           placeholder="Your Name (Max 20 characters)"
           maxLength={20}
-          value={userName}
+          value={username}
           onChange={onChangeUser}
         />
 
@@ -78,8 +137,8 @@ function Form({
           type="text"
           placeholder="Write your memory here... (Max 100 characters)"
           maxLength={100}
-          value={comments}
-          onChange={onChangeComments}
+          value={comment}
+          onChange={onChangeComment}
         />
         <button type="submit">등록</button>
       </FormContainer>

@@ -1,4 +1,7 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { selectedAlbumAction } from "redux/modules/actionTypes";
+import albumList from "shared/albumlist";
 import styled from "styled-components";
 
 const AlbumHeader = styled.div`
@@ -39,10 +42,20 @@ const AlbumTitle = styled.span`
   text-align: center;
 `;
 
-function Album({ albumList, clickAlbum, children }) {
+function Album() {
+  const dispatch = useDispatch();
+
+  const selectedAlbum = useSelector((state) => {
+    return state.home.selectedAlbum;
+  });
+
+  const getAlbumName = (name) => {
+    dispatch(selectedAlbumAction(name));
+  };
+
   return (
     <div>
-      <AlbumHeader>{children}</AlbumHeader>
+      <AlbumHeader>Select the album below</AlbumHeader>
       <AlbumContainer>
         {albumList.map((album) => {
           return (
@@ -52,7 +65,7 @@ function Album({ albumList, clickAlbum, children }) {
                 id={album.albumId}
                 name={album.albumId}
                 value={album.title}
-                onClick={clickAlbum}
+                onClick={() => getAlbumName(album.title)}
               />
               <AlbumImage src={album.image} alt={album.title} />
               <AlbumTitle>{album.title}</AlbumTitle>
