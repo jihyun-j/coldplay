@@ -7,6 +7,9 @@ const FormContainer = styled.form`
   justify-content: center;
   align-items: center;
   padding: 50px;
+  width: 500px;
+  border: 1px solid #ffef66;
+  margin: 20px auto;
 `;
 
 const Input = styled.input`

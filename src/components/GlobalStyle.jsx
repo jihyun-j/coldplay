@@ -16,6 +16,10 @@ button {
     background-color: #ffef66;
     width: 80px ;
     padding: 8px 10px ;
+    border:  2px solid #ffef66;
+    border-radius: 50px ;
+    background-color: transparent ;
+    color: #ffef66
 }
  
 `;

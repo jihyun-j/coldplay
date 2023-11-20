@@ -8,14 +8,19 @@ const CardContainer = styled.div`
   align-items: center;
   gap: 20px;
   flex-wrap: wrap;
-  border: 1px solid #fff;
 `;
 
 const Cards = styled.ul`
   display: flex;
   border: 1px solid #fff;
   width: 300px;
+  padding: 10px;
   flex-direction: column;
+  gap: 10px;
+`;
+
+const SeeDetail = styled.button`
+  cursor: pointer;
 `;
 
 function Card({ list, clickShowDetail }) {
@@ -24,11 +29,13 @@ function Card({ list, clickShowDetail }) {
       {list.map((item) => {
         return (
           <Cards key={item.id} onClick={() => clickShowDetail(item.id)}>
-            <Link to={`/detail/${item.id}`}>상세보기</Link>
-            <p>{item.title}</p>
-            <p>{item.userName}</p>
-            <p>{`${item.comments.substring(0, 35)}...`}</p>
             <p>{item.selectedAlbum}</p>
+            <p>제목: {item.title}</p>
+            <p>사용자: {item.userName}</p>
+            <p>내용: {`${item.comments.substring(0, 35)}...`}</p>
+            <Link to={`/detail/${item.id}`}>
+              <SeeDetail>상세보기</SeeDetail>
+            </Link>
           </Cards>
         );
       })}

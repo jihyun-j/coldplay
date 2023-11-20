@@ -22,7 +22,6 @@ const SelectAlbum = styled.label`
   align-items: center;
   justify-content: center;
   gap: 10px;
-  border: 1px solid yellow;
 `;
 
 const AlbumInput = styled.input`
